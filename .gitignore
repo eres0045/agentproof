@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+*.local
+backend/data/
+frontend/dist/
+*.keypair.json
+.DS_Store
+verification/shots/

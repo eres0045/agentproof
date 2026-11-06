@@ -1,0 +1,66 @@
+{
+  "app loads": {
+    "pass": true,
+    "detail": ""
+  },
+  "demo wallet toggle on": {
+    "pass": true,
+    "detail": ""
+  },
+  "header shows 0 SOL demo balance": {
+    "pass": true,
+    "detail": ""
+  },
+  "seeded demo completes": {
+    "pass": true,
+    "detail": "Seeded demo complete \u2014 check the Audit Log to verify the receipt."
+  },
+  "demo shows balance 0 SOL": {
+    "pass": true,
+    "detail": "What is the balance of the demo wallet? |  | Balance of HXSn...5mq: 0 SOL |  | 0 SOL |  | Send 0.05 SOL to Alice | Before you sign \u2014 check this | Requires Confirm |  | Send 0.05 SOL to B1wS...8hD |  | The user is sending 0.0"
+  },
+  "demo builds transfer explainer": {
+    "pass": true,
+    "detail": ""
+  },
+  "demo shows cap-blocked risky step": {
+    "pass": true,
+    "detail": ""
+  },
+  "demo confirm fails cleanly (no funds, error shown not crash)": {
+    "pass": true,
+    "detail": "confirm error surfaced in UI"
+  },
+  "chat transfer shows explainer + Confirm": {
+    "pass": true,
+    "detail": ""
+  },
+  "new explainer is for the 9xQe transfer": {
+    "pass": true,
+    "detail": ""
+  },
+  "reject marks message decided": {
+    "pass": true,
+    "detail": ""
+  },
+  "audit log renders actions": {
+    "pass": true,
+    "detail": "19 cards"
+  },
+  "audit shows blocked + rejected statuses": {
+    "pass": true,
+    "detail": ""
+  },
+  "settings caps change": {
+    "pass": true,
+    "detail": "0.1 SOL -> 0.08 SOL"
+  },
+  "settings caps restored to 0.1": {
+    "pass": true,
+    "detail": "0.1 SOL"
+  },
+  "no page JS errors": {
+    "pass": true,
+    "detail": ""
+  }
+}

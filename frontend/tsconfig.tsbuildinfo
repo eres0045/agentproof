@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/main.tsx","./src/components/ExplainerCard.tsx","./src/components/TrustFooter.tsx","./src/lib/api.ts","./src/lib/solana.ts","./src/pages/Audit.tsx","./src/pages/Chat.tsx","./src/pages/Settings.tsx","./test/frontend.test.tsx","./test/setup.ts","./vite.config.ts"],"version":"5.9.3"}
