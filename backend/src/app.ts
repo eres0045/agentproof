@@ -6,11 +6,13 @@ import { registerApiRoutes } from './routes/api';
 
 export function createApp(): Express {
   const app = express();
-  // Netlify Functions invoke the app at /.netlify/functions/api/... — strip
-  // that prefix so the /api routes match when called directly (the /api
-  // redirect proxy drops POST bodies, so production calls the function URL).
+  // Netlify Functions invoke the app at /.netlify/functions/<name>/... —
+  // strip that prefix so the /api routes match when called directly (the
+  // /api redirect proxy drops POST bodies, so production calls the
+  // function URL). Note: strip ONLY '/.netlify/functions' — the function
+  // is named 'api', so '/api/chat' must survive the strip.
   app.use((req, _res, next) => {
-    const prefix = '/.netlify/functions/api';
+    const prefix = '/.netlify/functions';
     if (req.url.startsWith(prefix)) {
       req.url = req.url.slice(prefix.length) || '/';
     }
