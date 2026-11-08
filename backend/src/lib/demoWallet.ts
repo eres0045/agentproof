@@ -32,7 +32,18 @@ let demoKeypair: Keypair | null = null;
 let demoRecipientKeypair: Keypair | null = null;
 
 export function getDemoKeypair(): Keypair {
-  if (!demoKeypair) demoKeypair = loadOrCreateKeypair(DEMO_KEYPAIR_PATH, 'demo keypair');
+  if (!demoKeypair) {
+    // Hosted deploys (e.g. Render) have no keypair file: the funded DevNet
+    // keypair arrives as DEMO_KEYPAIR_JSON (secret-key byte array as JSON).
+    const fromEnv = process.env.DEMO_KEYPAIR_JSON;
+    if (fromEnv) {
+      const secret = JSON.parse(fromEnv) as number[];
+      demoKeypair = Keypair.fromSecretKey(Uint8Array.from(secret));
+      console.log(`[demoWallet] loaded demo keypair from env: ${demoKeypair.publicKey.toBase58()}`);
+    } else {
+      demoKeypair = loadOrCreateKeypair(DEMO_KEYPAIR_PATH, 'demo keypair');
+    }
+  }
   return demoKeypair;
 }
 
