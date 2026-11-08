@@ -1,7 +1,7 @@
 # AgentProof — verification record (2026-11-06, ~11:20 IST)
 
 ## Test counts
-- Backend unit: **47 passed, 0 failed** (`backend/`, vitest) + 6 integration tests **skipped** (gated on `RUN_INTEGRATION=1` + funding).
+- Backend unit: **47 passed, 0 failed** (`backend/`, vitest) + 6 integration tests **PASSED 2026-11-08 16:06 IST** (funded run, `RUN_INTEGRATION=1`, see Funding section below).
 - Frontend unit: **11 passed, 0 failed** (`frontend/`, vitest).
 - Builds: `npm run build` clean in both packages (only the pre-existing Vite chunk-size warning).
 - Playwright E2E (`verification/e2e.py`, Python Playwright, Chromium headless): **16/16 passed**.
@@ -37,15 +37,18 @@
    makes `inner_text()` return "Blocked"); Reject click scoped to the newest agent message
    (the first run false-passed by rejecting the demo's stale explainer card).
 
-## Funding — STILL BLOCKED, no fake results
-- `api.devnet.solana.com` faucet: 410 Gone (known).
-- `https://devnet.helius-rpc.com` (no key): **401 Unauthorized**.
-- `https://rpc.ankr.com/solana_devnet` (no key): **401-equivalent, API key required**.
-- `https://solana-devnet.g.alchemy.com/v2/demo`: **429** (demo key rate-limited).
-- Demo wallet balance: **0 SOL**. Consequence: APROOF SPL mint creation fails at startup
-  (same insufficient-funds cause), funded integration tests stay skipped, no transfer/memo
-  signatures exist. Fund via https://faucet.solana.com (browser + Turnstile), then run
-  `RUN_INTEGRATION=1` backend tests + a live demo transfer + `/api/verify` true/false.
+## Funding — FUNDED 2026-11-08 16:06 IST, funded path VERIFIED LIVE
+- Faucet: https://faucet.solana.com, signed in with GitHub **eres45** (3.5 yrs old; eres0045 was rejected as too new earlier the same day). Airdrop **5 SOL** to the demo wallet, confirmed on-chain via `getBalance` (5,000,000,000 lamports, slot 519,992,871).
+- `RUN_INTEGRATION=1 npx vitest run test/integration.test.ts` → **6/6 passed** (20.3s, real DevNet):
+  - Risky 5 SOL instruction flagged AND cap-blocked, no txPreview.
+  - Live **0.01 SOL demo transfer** end-to-end with on-chain receipt:
+    transfer `SLx62ipDexPYFaW6V34peQ9eUq1QMT22sSmdaqKBHF2bTnTd7fWjSwYna14YR7yf8WG3MB2t3ns4BJHV3obNjse`
+    (https://solscan.io/tx/SLx62ipDexPYFaW6V34peQ9eUq1QMT22sSmdaqKBHF2bTnTd7fWjSwYna14YR7yf8WG3MB2t3ns4BJHV3obNjse?cluster=devnet),
+    memo receipt `2htb1Yt27HqRN54p9Y9knsrdzuZnDauNGnDfG7SZYuxgui5A2qnF8SM1mHRjvFMYSAyRdsZV7GTtrZksffcLNu4w`
+    (https://solscan.io/tx/2htb1Yt27HqRN54p9Y9knsrdzuZnDauNGnDfG7SZYuxgui5A2qnF8SM1mHRjvFMYSAyRdsZV7GTtrZksffcLNu4w?cluster=devnet),
+    `/api/verify` true on the real receipt and false on a tampered one.
+  - APROOF SPL mint auto-created at server startup: `34GtKuVoxoLycCkZF7PULUJRH1aSfFyyaCBz33zV79K7` (1000 minted to demo wallet). Server reported balance 4.99742476 SOL at startup (5 SOL minus mint-creation fee).
+- Earlier dead ends (kept for the record): `api.devnet.solana.com` RPC faucet 410 Gone; Helius no-key 401; Ankr 401; Alchemy demo key 429.
 
 ## Non-bugs noted
 - The wallet-adapter CSS `@import`s DM Sans from fonts.googleapis.com; this VM's egress proxy
@@ -57,6 +60,5 @@ https://github.com/eres0045/agentproof (public, pushed; 47 files; `backend/data/
 verified absent from the commit; secret grep clean — no `gsk_`, no keypair JSON).
 
 ## Still open
-- DevNet funding (above) → funded path: live transfer + memo receipt + verify true/tampered false.
 - Phantom (non-demo) sign-and-confirm flow — untested, needs a Phantom wallet in a real browser.
-- Demo video + MLH submission.
+- Demo video DONE + on YouTube (Unlisted, https://www.youtube.com/watch?v=fB7oH9m1Nko) + MLH Challenges submission in progress. Form closes Nov 8, 23:30 IST.

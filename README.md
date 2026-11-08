@@ -2,16 +2,13 @@
 
 MLH Solana Hackathon (AI track), Nov 6–8, 2026. Online, DevNet only.
 
-> Status: built and verified end to end 2026-11-06 (backend 47 unit tests green,
-> frontend 11 tests green, Playwright E2E 16/16 green — see `verification/`).
-> **DevNet funding pending:** the demo wallet holds 0 SOL because the DevNet RPC
-> faucet is closed (410 Gone) and the public no-key RPCs tried (Helius 401,
-> Ankr 401, Alchemy demo key 429) all refuse `requestAirdrop`. Fund the demo
-> wallet at https://faucet.solana.com (browser + Turnstile) and the funded
-> path — live transfer, memo receipt, `/api/verify` true/false — can then be
-> exercised (`RUN_INTEGRATION=1` backend tests). Until then the transfer
-> confirm step fails cleanly with an insufficient-funds error and the risky
-> 5 SOL step is cap-blocked as designed. See `shared/CONTRACT.md` for the backend↔frontend API contract.
+> Status: built and verified end to end. Backend 47 unit tests, frontend 11
+> tests, Playwright E2E 16/16 green — see `verification/`.
+> **Funded 2026-11-08: demo wallet holds 5 SOL on DevNet (via the Solana
+> faucet); funded integration tests 6/6 green — live 0.01 SOL transfer,
+> on-chain memo receipt, `/api/verify` true on the real receipt and false on
+> a tampered one, and the risky 5 SOL instruction cap-blocked as designed.**
+> See `shared/CONTRACT.md` for the backend↔frontend API contract.
 
 ## What it is
 
