@@ -47,7 +47,8 @@ export interface DbShape {
 
 export const DEFAULT_LIMITS: Limits = { perTxCapSol: 0.1, sessionCapSol: 0.5 };
 
-export const DATA_DIR = join(__dirname, '..', '..', 'data');
+export const DATA_DIR =
+  process.env.AGENTPROOF_DATA_DIR ?? join(__dirname, '..', '..', 'data');
 export const DB_PATH = join(DATA_DIR, 'db.json');
 
 /**
