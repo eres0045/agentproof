@@ -1,7 +1,13 @@
 // Typed fetch wrapper for the AgentProof backend.
 // Field names and shapes follow shared/CONTRACT.md exactly — do not invent
-// backend fields here. All calls are relative (/api/...) so the Vite dev
-// proxy forwards them to http://localhost:4000.
+// backend fields here.
+//
+// In dev, calls go to /api/... and the Vite dev proxy forwards them to
+// http://localhost:4000. In production the backend is a Netlify Function:
+// the app calls it DIRECTLY at /.netlify/functions/api/... because the
+// /api redirect proxy drops POST bodies (verified: POST /api/chat hangs,
+// direct POST to the function answers immediately).
+const API_BASE = import.meta.env.PROD ? '/.netlify/functions/api' : '/api'
 
 export type RiskSeverity = 'low' | 'medium' | 'high'
 
@@ -92,7 +98,8 @@ export class ApiError extends Error {
 }
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(path, {
+  // path is written as /api/...; API_BASE supplies the right prefix per env.
+  const res = await fetch(API_BASE + path.slice('/api'.length), {
     ...init,
     headers: { 'Content-Type': 'application/json', ...(init?.headers ?? {}) },
   })

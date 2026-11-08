@@ -6,6 +6,16 @@ import { registerApiRoutes } from './routes/api';
 
 export function createApp(): Express {
   const app = express();
+  // Netlify Functions invoke the app at /.netlify/functions/api/... — strip
+  // that prefix so the /api routes match when called directly (the /api
+  // redirect proxy drops POST bodies, so production calls the function URL).
+  app.use((req, _res, next) => {
+    const prefix = '/.netlify/functions/api';
+    if (req.url.startsWith(prefix)) {
+      req.url = req.url.slice(prefix.length) || '/';
+    }
+    next();
+  });
   // Allowed browser origins: CORS_ORIGINS env (comma-separated) for the
   // deployed frontend, else local dev only.
   const corsOrigins = (process.env.CORS_ORIGINS ?? '')

@@ -1,3 +1,9 @@
+[functions]
+  # Bundle node_modules into one file (esbuild inlines ESM deps like uuid);
+  # the default file-tracer ships node_modules as-is and the Lambda Node
+  # runtime then chokes on require() of ESM-only uuid from rpc-websockets.
+  node_bundler = "esbuild"
+
 [build]
   command = "npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend && npm run build --prefix backend"
   functions = "backend/netlify-function"
